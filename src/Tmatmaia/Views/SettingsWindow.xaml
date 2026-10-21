@@ -1,0 +1,57 @@
+<Window
+    x:Class="Tmatmaia.Views.SettingsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Tmatmaia Settings"
+    Icon="pack://application:,,,/Assets/tmatmaia.ico"
+    Width="340"
+    SizeToContent="Height"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    Topmost="True">
+    <StackPanel Margin="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="90" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center" /><Setter Property="Margin" Value="0,6" /></Style>
+                <Style TargetType="TextBox"><Setter Property="Margin" Value="0,4" /><Setter Property="Padding" Value="4,3" /></Style>
+            </Grid.Resources>
+            <TextBlock Grid.Row="0" Text="Focus (minutes)" />
+            <TextBox x:Name="FocusBox" Grid.Row="0" Grid.Column="1" />
+            <TextBlock Grid.Row="1" Text="Short break (minutes)" />
+            <TextBox x:Name="ShortBox" Grid.Row="1" Grid.Column="1" />
+            <TextBlock Grid.Row="2" Text="Long break (minutes)" />
+            <TextBox x:Name="LongBox" Grid.Row="2" Grid.Column="1" />
+            <TextBlock Grid.Row="3" Text="Long break every N pomodoros" />
+            <TextBox x:Name="EveryBox" Grid.Row="3" Grid.Column="1" />
+        </Grid>
+
+        <CheckBox x:Name="AutoStartBox" Content="Start next phase automatically" Margin="0,14,0,0" />
+        <CheckBox x:Name="SoundBox" Content="Play sound when a phase ends" Margin="0,6,0,0" />
+        <CheckBox x:Name="NotifyBox" Content="Show notification" Margin="0,6,0,0" />
+        <CheckBox x:Name="StartupBox" Content="Start with Windows" Margin="0,6,0,0" />
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <TextBlock Text="Placement" VerticalAlignment="Center" Margin="0,0,10,0" />
+            <ComboBox x:Name="PlacementBox" Width="150" SelectedIndex="0">
+                <ComboBoxItem Content="Inside taskbar" />
+                <ComboBoxItem Content="Overlay (fallback)" />
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Cancel" Width="80" Margin="0,0,8,0" IsCancel="True" />
+            <Button Content="Save" Width="80" IsDefault="True" Click="OnSave" />
+        </StackPanel>
+
+        <Separator Margin="0,18,0,10" />
+        <TextBlock TextWrapping="Wrap" Opacity="0.75" FontSize="11"
+                   Text="Tmatmaia is open source 🍅 Want to add something to the main repo? Get in touch." />
+        <Button Content="GitHub profile" HorizontalAlignment="Left" Padding="10,3" Margin="0,8,0,0" Click="OnGitHubClick" />
+    </StackPanel>
+</Window>

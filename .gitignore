@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+dist/
+*.binlog
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Claude Code local settings
+.claude/
+
+# OS
+Thumbs.db
+Desktop.ini
