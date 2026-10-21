@@ -1,4 +1,3 @@
-using System.Media;
 using Tmatmaia.Core;
 
 namespace Tmatmaia.Services;
@@ -11,7 +10,7 @@ public sealed class Notifier
 
     public void PhaseCompleted(Phase finished, Settings settings)
     {
-        if (settings.PlaySound) SystemSounds.Exclamation.Play();
+        Sounds.Play(settings.Sound);
         if (!settings.ShowNotification) return;
 
         var (title, text) = finished == Phase.Focus

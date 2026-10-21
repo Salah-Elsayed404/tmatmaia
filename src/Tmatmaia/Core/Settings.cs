@@ -3,8 +3,6 @@ using System.Text.Json;
 
 namespace Tmatmaia.Core;
 
-public enum PlacementMode { Embedded, Overlay }
-
 public sealed class Settings
 {
     public int FocusMinutes { get; set; } = 25;
@@ -12,10 +10,12 @@ public sealed class Settings
     public int LongBreakMinutes { get; set; } = 15;
     public int LongBreakEvery { get; set; } = 4;
     public bool AutoStartNext { get; set; } = true;
-    public bool PlaySound { get; set; } = true;
+
+    // A file name in %WINDIR%\Media, a full path to a .wav file, or empty for no sound.
+    public string Sound { get; set; } = "Alarm01.wav";
+
     public bool ShowNotification { get; set; } = true;
     public bool StartWithWindows { get; set; }
-    public PlacementMode Placement { get; set; } = PlacementMode.Embedded;
 
     private static readonly string s_path = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Tmatmaia", "settings.json");

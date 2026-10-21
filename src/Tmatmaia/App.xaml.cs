@@ -51,20 +51,18 @@ public partial class App : Application
         s_settingsWindow.Show();
     }
 
-    public static async void ApplySettings(Settings settings, bool placementChanged)
+    public static void ApplySettings(Settings settings)
     {
         settings.Save();
         StartupRegistration.Set(settings.StartWithWindows);
         Engine.ApplySettings(settings);
-        if (placementChanged) await RecreateMainWindowAsync();
     }
 
     private static async Task InitializeMainWindowAsync()
     {
-        var window = new MainWindow(Engine.Settings.Placement);
+        var window = new MainWindow();
         s_mainWindow = window;
-        if (window.TaskbarContentHost is { } host)
-            host.TaskbarWindowRecreationRequired += async (_, _) => await RecreateMainWindowAsync();
+        window.TaskbarContentHost.TaskbarWindowRecreationRequired += async (_, _) => await RecreateMainWindowAsync();
 
         await window.PrepareAsync();
         window.Show();
@@ -75,7 +73,7 @@ public partial class App : Application
     {
         var old = s_mainWindow;
         s_mainWindow = null;
-        old?.TaskbarContentHost?.Dispose();
+        old?.TaskbarContentHost.Dispose();
 
         await Task.Delay(1000);
         await InitializeMainWindowAsync();

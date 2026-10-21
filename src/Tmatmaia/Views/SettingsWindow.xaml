@@ -32,17 +32,21 @@
             <TextBox x:Name="EveryBox" Grid.Row="3" Grid.Column="1" />
         </Grid>
 
+        <TextBlock Text="Sound when a phase ends" Margin="0,14,0,4" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="SoundBox" Grid.Column="0" />
+            <Button Grid.Column="1" Content="▶" Width="30" Margin="6,0,0,0" ToolTip="Preview" Click="OnPreviewSound" />
+            <Button Grid.Column="2" Content="Browse…" Padding="8,0" Margin="6,0,0,0" Click="OnBrowseSound" />
+        </Grid>
+
         <CheckBox x:Name="AutoStartBox" Content="Start next phase automatically" Margin="0,14,0,0" />
-        <CheckBox x:Name="SoundBox" Content="Play sound when a phase ends" Margin="0,6,0,0" />
         <CheckBox x:Name="NotifyBox" Content="Show notification" Margin="0,6,0,0" />
         <CheckBox x:Name="StartupBox" Content="Start with Windows" Margin="0,6,0,0" />
-        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-            <TextBlock Text="Placement" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <ComboBox x:Name="PlacementBox" Width="150" SelectedIndex="0">
-                <ComboBoxItem Content="Inside taskbar" />
-                <ComboBoxItem Content="Overlay (fallback)" />
-            </ComboBox>
-        </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
             <Button Content="Cancel" Width="80" Margin="0,0,8,0" IsCancel="True" />

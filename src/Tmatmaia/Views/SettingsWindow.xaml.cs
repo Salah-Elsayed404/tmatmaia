@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Win32;
 using Tmatmaia.Core;
 using Tmatmaia.Services;
 
@@ -18,10 +20,40 @@ public partial class SettingsWindow : Window
         LongBox.Text = s.LongBreakMinutes.ToString();
         EveryBox.Text = s.LongBreakEvery.ToString();
         AutoStartBox.IsChecked = s.AutoStartNext;
-        SoundBox.IsChecked = s.PlaySound;
         NotifyBox.IsChecked = s.ShowNotification;
         StartupBox.IsChecked = StartupRegistration.IsEnabled();
-        PlacementBox.SelectedIndex = s.Placement == PlacementMode.Embedded ? 0 : 1;
+
+        AddSound("");
+        foreach (var sound in Sounds.BuiltIn) AddSound(sound);
+        SelectSound(s.Sound);
+
+        Closed += (_, _) => Sounds.Stop();
+    }
+
+    private string SelectedSound => (SoundBox.SelectedItem as ComboBoxItem)?.Tag as string ?? "";
+
+    private void AddSound(string sound) =>
+        SoundBox.Items.Add(new ComboBoxItem { Content = Sounds.DisplayName(sound), Tag = sound, ToolTip = sound });
+
+    // Selects the sound, adding it first if it's a custom file not in the list.
+    private void SelectSound(string sound)
+    {
+        var item = SoundBox.Items.OfType<ComboBoxItem>()
+            .FirstOrDefault(i => string.Equals((string)i.Tag, sound, StringComparison.OrdinalIgnoreCase));
+        if (item is null)
+        {
+            AddSound(sound);
+            item = (ComboBoxItem)SoundBox.Items[^1];
+        }
+        SoundBox.SelectedItem = item;
+    }
+
+    private void OnPreviewSound(object sender, RoutedEventArgs e) => Sounds.Play(SelectedSound);
+
+    private void OnBrowseSound(object sender, RoutedEventArgs e)
+    {
+        var dialog = new OpenFileDialog { Title = "Choose a sound", Filter = "WAV sounds (*.wav)|*.wav" };
+        if (dialog.ShowDialog(this) == true) SelectSound(dialog.FileName);
     }
 
     private void OnSave(object sender, RoutedEventArgs e)
@@ -33,20 +65,17 @@ public partial class SettingsWindow : Window
             return;
         }
 
-        var previousPlacement = App.Engine.Settings.Placement;
-        var settings = new Settings
+        App.ApplySettings(new Settings
         {
             FocusMinutes = focus,
             ShortBreakMinutes = shortBreak,
             LongBreakMinutes = longBreak,
             LongBreakEvery = every,
             AutoStartNext = AutoStartBox.IsChecked == true,
-            PlaySound = SoundBox.IsChecked == true,
+            Sound = SelectedSound,
             ShowNotification = NotifyBox.IsChecked == true,
             StartWithWindows = StartupBox.IsChecked == true,
-            Placement = PlacementBox.SelectedIndex == 0 ? PlacementMode.Embedded : PlacementMode.Overlay,
-        };
-        App.ApplySettings(settings, placementChanged: settings.Placement != previousPlacement);
+        });
         Close();
     }
 
