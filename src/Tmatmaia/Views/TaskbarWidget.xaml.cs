@@ -50,8 +50,8 @@ public partial class TaskbarWidget : UserControl
         var light = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
             "SystemUsesLightTheme", 0) is int value && value == 1;
         Foreground = light ? Brushes.Black : Brushes.White;
-        ControlsFrame.BorderBrush = new SolidColorBrush(light ? Color.FromArgb(0x40, 0, 0, 0) : Color.FromArgb(0x40, 0xFF, 0xFF, 0xFF));
-        ControlsFrame.Background = new SolidColorBrush(light ? Color.FromArgb(0x0F, 0, 0, 0) : Color.FromArgb(0x14, 0xFF, 0xFF, 0xFF));
+        Frame.BorderBrush = new SolidColorBrush(light ? Color.FromArgb(0x40, 0, 0, 0) : Color.FromArgb(0x40, 0xFF, 0xFF, 0xFF));
+        Frame.Background = new SolidColorBrush(light ? Color.FromArgb(0x0F, 0, 0, 0) : Color.FromArgb(0x14, 0xFF, 0xFF, 0xFF));
     }
 
     private void OnToggleClick(object sender, RoutedEventArgs e) => App.Engine.Toggle();

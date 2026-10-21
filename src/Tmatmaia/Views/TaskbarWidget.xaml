@@ -32,22 +32,19 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="Transparent">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,4,0">
-            <TextBlock x:Name="TimeText" FontSize="30" FontWeight="SemiBold" FontFamily="Segoe UI" VerticalAlignment="Center" Text="25:00" />
-            <TextBlock x:Name="PhaseText" FontSize="11" Opacity="0.7" FontFamily="Segoe UI" VerticalAlignment="Center" Margin="8,4,8,0" Text="Focus #1" />
+    <!-- Timer, phase and controls together in one rounded frame, with the progress bar along its bottom edge -->
+    <Border x:Name="Frame" CornerRadius="8" BorderThickness="1" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+        <Grid>
+            <StackPanel Orientation="Horizontal" Margin="10,1,2,1">
+                <TextBlock x:Name="TimeText" FontSize="28" FontWeight="SemiBold" FontFamily="Segoe UI" VerticalAlignment="Center" Text="25:00" />
+                <TextBlock x:Name="PhaseText" FontSize="11" Opacity="0.7" FontFamily="Segoe UI" VerticalAlignment="Center" Margin="8,4,6,0" Text="Focus #1" />
+                <Button x:Name="ToggleButton" Style="{StaticResource GlyphButton}" Click="OnToggleClick" ToolTip="Start / pause" Content="&#xE768;" />
+                <Button Style="{StaticResource GlyphButton}" Click="OnResetClick" ToolTip="Reset" Content="&#xE72C;" />
+                <Button Style="{StaticResource GlyphButton}" Click="OnSettingsClick" ToolTip="Settings" Content="&#xE713;" />
+            </StackPanel>
 
-            <!-- Controls grouped in a rounded frame -->
-            <Border x:Name="ControlsFrame" CornerRadius="8" BorderThickness="1" Padding="2" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ToggleButton" Style="{StaticResource GlyphButton}" Click="OnToggleClick" ToolTip="Start / pause" Content="&#xE768;" />
-                    <Button Style="{StaticResource GlyphButton}" Click="OnResetClick" ToolTip="Reset" Content="&#xE72C;" />
-                    <Button Style="{StaticResource GlyphButton}" Click="OnSettingsClick" ToolTip="Settings" Content="&#xE713;" />
-                </StackPanel>
-            </Border>
-        </StackPanel>
-
-        <ProgressBar x:Name="Bar" VerticalAlignment="Bottom" Height="3" Minimum="0" Maximum="1"
-                     Background="Transparent" BorderThickness="0" Foreground="#E5484D" />
-    </Grid>
+            <ProgressBar x:Name="Bar" VerticalAlignment="Bottom" Height="3" Margin="8,0,8,0" Minimum="0" Maximum="1"
+                         Background="Transparent" BorderThickness="0" Foreground="#E5484D" />
+        </Grid>
+    </Border>
 </UserControl>

@@ -29,7 +29,7 @@ I turned the internet upside down looking for a Pomodoro app that sits right ins
 - Sits in the empty part of the taskbar, so it never covers windows and stays visible.
 - Focus, short break and long break phases, with a long break every N pomodoros.
 - A progress bar under the timer (red for focus, green for breaks).
-- Play/pause, reset and settings buttons in a small frame right next to the timer.
+- The timer, phase and play/pause, reset and settings buttons sit together in one rounded frame.
 - A sound of your choice when a phase ends: built-in Windows alarms and rings, or any `.wav` file, with a preview button.
 - A Windows notification when a phase ends.
 - Optional start with Windows.
