@@ -51,6 +51,8 @@ I turned the internet upside down looking for a Pomodoro app that sits right ins
 
 Uninstall from Windows Settings → Apps like any other program.
 
+> **Why is the installer ~55 MB for a Pomodoro timer?** The app itself is under 1 MB. The rest is the .NET 10 runtime, bundled in so Tmatmaia runs even if you don't have .NET installed.
+
 The app is not code-signed yet, so Windows may warn or block it:
 - **SmartScreen:** choose **More info → Run anyway**.
 - **Smart App Control** (if turned on) blocks unsigned downloads outright, with no override. Build it from source (below) instead, or turn Smart App Control off.
