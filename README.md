@@ -36,6 +36,10 @@ I turned the internet upside down looking for a Pomodoro app that sits right ins
 - Tray icon with the same controls (Start/Pause, Reset, Skip, Settings, Exit).
 - Follows the Windows light/dark theme.
 
+<p align="center">
+  <img src="docs/settings.png" width="320" alt="Tmatmaia settings window" />
+</p>
+
 ## Requirements
 
 - Windows 11 (the taskbar embedding uses Windows 11 internals).
@@ -55,7 +59,7 @@ Uninstall from Windows Settings → Apps like any other program.
 
 The app is not code-signed yet, so Windows may warn or block it:
 - **SmartScreen:** choose **More info → Run anyway**.
-- **Smart App Control** (if turned on) blocks unsigned downloads outright, with no override. Build it from source (below) instead, or turn Smart App Control off.
+- **Smart App Control** (if turned on) blocks unsigned apps outright, with no override. Build it from source (below) instead, or turn Smart App Control off (note that Windows can't turn it back on without a reinstall).
 
 ## Build from source
 
@@ -102,6 +106,7 @@ scripts/
   make-icon.ps1              Draws the neon tomato icon from code
 docs/
   DESIGN.md                  Design decisions and known limitations
+  icon.png, screenshot.png, settings.png   Images used in this README
 ```
 
 Settings are stored in `%APPDATA%\Tmatmaia\settings.json`.
@@ -116,6 +121,7 @@ This relies on undocumented shell behavior, so a Windows update can break it. If
 
 - Only the primary monitor's taskbar is supported.
 - The taskbar must not be set to auto-hide.
+
 ## Contributing
 
 Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
