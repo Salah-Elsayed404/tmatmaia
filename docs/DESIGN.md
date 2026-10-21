@@ -16,10 +16,10 @@ A Pomodoro timer for Windows 11 that sits inside the empty area of the taskbar.
 
 ## Behavior
 
-**Taskbar widget** (250×48)
+**Taskbar widget** (270×48)
 - Large `mm:ss` time with the phase (`Focus #n`, `Break`, `Long break`) beside it, and a thin progress bar (red for focus, green for breaks).
-- ▶/⏸ start/pause and ⟲ reset the current phase.
-- Single click on the time toggles start/pause after the system double-click interval; a double click opens Settings instead.
+- A rounded frame next to the phase holds ▶/⏸ start/pause, ⟲ reset and ⚙ settings (Segoe Fluent Icons glyphs).
+- The timer text itself is not clickable; all actions go through the buttons.
 
 **Timer engine** (`Core/PomodoroEngine.cs`)
 - Phases: `Focus → ShortBreak | LongBreak → Focus…`. A long break follows every N completed focus phases.

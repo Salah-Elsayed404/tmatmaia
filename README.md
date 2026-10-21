@@ -28,8 +28,8 @@ I turned the internet upside down looking for a Pomodoro app that sits right ins
 
 - Sits in the empty part of the taskbar, so it never covers windows and stays visible.
 - Focus, short break and long break phases, with a long break every N pomodoros.
-- Start/pause and reset buttons right on the taskbar, plus a progress bar under the timer.
-- Click the time to start or pause; **double-click it to open Settings**.
+- A progress bar under the timer (red for focus, green for breaks).
+- Play/pause, reset and settings buttons in a small frame right next to the timer.
 - A sound of your choice when a phase ends: built-in Windows alarms and rings, or any `.wav` file, with a preview button.
 - A Windows notification when a phase ends.
 - Optional start with Windows.
@@ -46,7 +46,7 @@ I turned the internet upside down looking for a Pomodoro app that sits right ins
 
 1. Download `Tmatmaia-<version>-setup.exe` from the [Releases page](https://github.com/Salah-Elsayed404/tmatmaia/releases).
 2. Run it. No admin rights or .NET needed; it installs to `%LOCALAPPDATA%\Programs\Tmatmaia`.
-3. On the last page, tick **Start Tmatmaia when Windows starts** if you want it to launch automatically. You can change this later: double-click the timer and toggle **Start with Windows**.
+3. On the last page, tick **Start Tmatmaia when Windows starts** if you want it to launch automatically. You can change this later: click the ⚙ button next to the timer and toggle **Start with Windows**.
 4. The timer appears in the taskbar after a couple of seconds.
 
 Uninstall from Windows Settings → Apps like any other program.

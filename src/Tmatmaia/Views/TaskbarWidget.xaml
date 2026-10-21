@@ -4,22 +4,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
         <Style x:Key="GlyphButton" TargetType="Button">
-            <Setter Property="Width" Value="30" />
-            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="36" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons, Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="17" />
             <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=UserControl}}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="Bg" Background="{TemplateBinding Background}" CornerRadius="4">
+                        <Border x:Name="Bg" Background="{TemplateBinding Background}" CornerRadius="6">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Bg" Property="Background" Value="#33808080" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#55808080" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -29,22 +33,21 @@
     </UserControl.Resources>
 
     <Grid Background="Transparent">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
-        <StackPanel x:Name="TimeArea" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,6,0"
-                    Background="Transparent" Cursor="Hand" MouseLeftButtonDown="OnTimeMouseDown">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,4,0">
             <TextBlock x:Name="TimeText" FontSize="30" FontWeight="SemiBold" FontFamily="Segoe UI" VerticalAlignment="Center" Text="25:00" />
-            <TextBlock x:Name="PhaseText" FontSize="11" Opacity="0.7" FontFamily="Segoe UI" VerticalAlignment="Center" Margin="8,4,0,0" Text="Focus #1" />
+            <TextBlock x:Name="PhaseText" FontSize="11" Opacity="0.7" FontFamily="Segoe UI" VerticalAlignment="Center" Margin="8,4,8,0" Text="Focus #1" />
+
+            <!-- Controls grouped in a rounded frame -->
+            <Border x:Name="ControlsFrame" CornerRadius="8" BorderThickness="1" Padding="2" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="ToggleButton" Style="{StaticResource GlyphButton}" Click="OnToggleClick" ToolTip="Start / pause" Content="&#xE768;" />
+                    <Button Style="{StaticResource GlyphButton}" Click="OnResetClick" ToolTip="Reset" Content="&#xE72C;" />
+                    <Button Style="{StaticResource GlyphButton}" Click="OnSettingsClick" ToolTip="Settings" Content="&#xE713;" />
+                </StackPanel>
+            </Border>
         </StackPanel>
 
-        <Button x:Name="ToggleButton" Grid.Column="1" Style="{StaticResource GlyphButton}" Click="OnToggleClick" Content="▶" />
-        <Button x:Name="ResetButton" Grid.Column="2" Style="{StaticResource GlyphButton}" Click="OnResetClick" Content="⟲" Margin="0,0,4,0" />
-
-        <ProgressBar x:Name="Bar" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="3" Minimum="0" Maximum="1"
+        <ProgressBar x:Name="Bar" VerticalAlignment="Bottom" Height="3" Minimum="0" Maximum="1"
                      Background="Transparent" BorderThickness="0" Foreground="#E5484D" />
     </Grid>
 </UserControl>

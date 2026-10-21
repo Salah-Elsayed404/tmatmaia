@@ -1,7 +1,5 @@
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Microsoft.Win32;
@@ -11,20 +9,16 @@ namespace Tmatmaia.Views;
 
 public partial class TaskbarWidget : UserControl
 {
+    // Segoe Fluent Icons glyphs
+    private const string PlayGlyph = "";
+    private const string PauseGlyph = "";
+
     private readonly DispatcherTimer _refresh = new() { Interval = TimeSpan.FromMilliseconds(250) };
-    private readonly DispatcherTimer _singleClick = new();
 
     public TaskbarWidget()
     {
         InitializeComponent();
         ApplyTheme();
-
-        _singleClick.Interval = TimeSpan.FromMilliseconds(GetDoubleClickTime());
-        _singleClick.Tick += (_, _) =>
-        {
-            _singleClick.Stop();
-            App.Engine.Toggle();
-        };
 
         _refresh.Tick += (_, _) => App.Engine.Tick();
         App.Engine.Changed += Render;
@@ -44,7 +38,7 @@ public partial class TaskbarWidget : UserControl
             Phase.ShortBreak => "Break",
             _ => "Long break",
         };
-        ToggleButton.Content = engine.Running ? "⏸" : "▶";
+        ToggleButton.Content = engine.Running ? PauseGlyph : PlayGlyph;
         Bar.Value = engine.Progress;
         Bar.Foreground = new SolidColorBrush(engine.Phase == Phase.Focus
             ? Color.FromRgb(0xE5, 0x48, 0x4D)
@@ -56,26 +50,13 @@ public partial class TaskbarWidget : UserControl
         var light = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
             "SystemUsesLightTheme", 0) is int value && value == 1;
         Foreground = light ? Brushes.Black : Brushes.White;
-    }
-
-    private void OnTimeMouseDown(object sender, MouseButtonEventArgs e)
-    {
-        if (e.ClickCount >= 2)
-        {
-            _singleClick.Stop();
-            App.ShowSettings();
-        }
-        else
-        {
-            _singleClick.Stop();
-            _singleClick.Start();
-        }
-        e.Handled = true;
+        ControlsFrame.BorderBrush = new SolidColorBrush(light ? Color.FromArgb(0x40, 0, 0, 0) : Color.FromArgb(0x40, 0xFF, 0xFF, 0xFF));
+        ControlsFrame.Background = new SolidColorBrush(light ? Color.FromArgb(0x0F, 0, 0, 0) : Color.FromArgb(0x14, 0xFF, 0xFF, 0xFF));
     }
 
     private void OnToggleClick(object sender, RoutedEventArgs e) => App.Engine.Toggle();
 
     private void OnResetClick(object sender, RoutedEventArgs e) => App.Engine.Reset();
 
-    [DllImport("user32.dll")] private static extern uint GetDoubleClickTime();
+    private void OnSettingsClick(object sender, RoutedEventArgs e) => App.ShowSettings();
 }
