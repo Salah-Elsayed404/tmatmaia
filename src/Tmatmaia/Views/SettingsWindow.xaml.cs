@@ -27,6 +27,7 @@ public partial class SettingsWindow : Window
         foreach (var sound in Sounds.BuiltIn) AddSound(sound);
         SelectSound(s.Sound);
 
+        VersionText.Text = $"Version {UpdateChecker.CurrentVersion}";
         ShowUpdate();
         App.UpdateFound += ShowUpdate;
         Closed += (_, _) => { Sounds.Stop(); App.UpdateFound -= ShowUpdate; };
@@ -90,6 +91,9 @@ public partial class SettingsWindow : Window
         });
         Close();
     }
+
+    // IsCancel only closes windows opened with ShowDialog, and Settings is opened with Show, so close it here.
+    private void OnCancel(object sender, RoutedEventArgs e) => Close();
 
     private void OnGitHubClick(object sender, RoutedEventArgs e) => OpenLink(GitHubProfileUrl);
 

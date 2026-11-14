@@ -66,11 +66,12 @@
         <CheckBox x:Name="StartupBox" Content="Start with Windows" Margin="0,6,0,0" />
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Cancel" Width="80" Margin="0,0,8,0" IsCancel="True" />
+            <Button Content="Cancel" Width="80" Margin="0,0,8,0" IsCancel="True" Click="OnCancel" />
             <Button Content="Save" Width="80" IsDefault="True" Click="OnSave" />
         </StackPanel>
 
         <Separator Margin="0,18,0,10" />
+        <TextBlock x:Name="VersionText" FontSize="11" FontWeight="SemiBold" Opacity="0.75" Margin="0,0,0,4" />
         <TextBlock TextWrapping="Wrap" Opacity="0.75" FontSize="11"
                    Text="Tmatmaia is open source 🍅 Want to add something to the main repo? Get in touch." />
         <Button Content="GitHub profile" HorizontalAlignment="Left" Padding="10,3" Margin="0,8,0,0" Click="OnGitHubClick" />
