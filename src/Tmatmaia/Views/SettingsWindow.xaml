@@ -10,6 +10,23 @@
     WindowStartupLocation="CenterScreen"
     Topmost="True">
     <StackPanel Margin="20">
+        <!-- Shown when the startup check finds a newer version -->
+        <Border x:Name="UpdatePanel" Visibility="Collapsed" CornerRadius="6" Padding="12,10" Margin="0,0,0,16"
+                Background="#14E5484D" BorderBrush="#80E5484D" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Update available" FontWeight="SemiBold" />
+                    <TextBlock x:Name="UpdateText" FontSize="11" Opacity="0.75" TextWrapping="Wrap" Margin="0,2,0,0" />
+                </StackPanel>
+                <Button Grid.Column="1" Content="Download" Padding="12,4" Margin="10,0,0,0" VerticalAlignment="Center"
+                        Click="OnDownloadUpdateClick" />
+            </Grid>
+        </Border>
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

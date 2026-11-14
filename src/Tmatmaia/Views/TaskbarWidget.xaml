@@ -40,7 +40,12 @@
                 <TextBlock x:Name="PhaseText" FontSize="11" Opacity="0.7" FontFamily="Segoe UI" VerticalAlignment="Center" Margin="8,4,6,0" Text="Focus #1" />
                 <Button x:Name="ToggleButton" Style="{StaticResource GlyphButton}" Click="OnToggleClick" ToolTip="Start / pause" Content="&#xE768;" />
                 <Button Style="{StaticResource GlyphButton}" Click="OnResetClick" ToolTip="Reset" Content="&#xE72C;" />
-                <Button Style="{StaticResource GlyphButton}" Click="OnSettingsClick" ToolTip="Settings" Content="&#xE713;" />
+                <Grid>
+                    <Button x:Name="SettingsButton" Style="{StaticResource GlyphButton}" Click="OnSettingsClick" ToolTip="Settings" Content="&#xE713;" />
+                    <!-- Shown when a newer version is out -->
+                    <Ellipse x:Name="UpdateDot" Width="7" Height="7" Fill="#E5484D" HorizontalAlignment="Right" VerticalAlignment="Top"
+                             Margin="0,6,6,0" IsHitTestVisible="False" Visibility="Collapsed" />
+                </Grid>
             </StackPanel>
 
             <ProgressBar x:Name="Bar" VerticalAlignment="Bottom" Height="3" Margin="8,0,8,0" Minimum="0" Maximum="1"

@@ -22,8 +22,8 @@ public partial class TaskbarWidget : UserControl
 
         _refresh.Tick += (_, _) => App.Engine.Tick();
         App.Engine.Changed += Render;
-        Loaded += (_, _) => { _refresh.Start(); Render(); };
-        Unloaded += (_, _) => { _refresh.Stop(); App.Engine.Changed -= Render; };
+        Loaded += (_, _) => { _refresh.Start(); Render(); ShowUpdateDot(); App.UpdateFound += ShowUpdateDot; };
+        Unloaded += (_, _) => { _refresh.Stop(); App.Engine.Changed -= Render; App.UpdateFound -= ShowUpdateDot; };
         SystemEvents.UserPreferenceChanged += (_, _) => Dispatcher.Invoke(ApplyTheme);
     }
 
@@ -43,6 +43,13 @@ public partial class TaskbarWidget : UserControl
         Bar.Foreground = new SolidColorBrush(engine.Phase == Phase.Focus
             ? Color.FromRgb(0xE5, 0x48, 0x4D)
             : Color.FromRgb(0x30, 0xA4, 0x6C));
+    }
+
+    private void ShowUpdateDot()
+    {
+        var update = App.AvailableUpdate;
+        UpdateDot.Visibility = update is null ? Visibility.Collapsed : Visibility.Visible;
+        SettingsButton.ToolTip = update is null ? "Settings" : $"Settings (version {update.Version} is available)";
     }
 
     private void ApplyTheme()

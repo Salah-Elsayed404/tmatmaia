@@ -13,6 +13,7 @@ A Pomodoro timer for Windows 11 that sits inside the empty area of the taskbar.
 | Base project | Built from scratch | The closest existing project, taskbar-focus (Rust), is a tray icon plus an optional floating window, not a taskbar widget. |
 | Settings storage | JSON in `%APPDATA%\Tmatmaia\settings.json` | Simple and easy to back up. |
 | Icon | Drawn from code by `scripts/make-icon.ps1` | Anyone can tweak and regenerate it without design tools. |
+| Update check | One request to the GitHub API for the latest release when the app starts; the Download button opens the installer link in the browser | No update server or extra dependency. The browser handles the download and SmartScreen, and the installer already closes the running app and upgrades in place. |
 
 ## Behavior
 
@@ -20,6 +21,7 @@ A Pomodoro timer for Windows 11 that sits inside the empty area of the taskbar.
 - Large `mm:ss` time with the phase (`Focus #n`, `Break`, `Long break`) beside it, and a thin progress bar (red for focus, green for breaks).
 - One rounded frame holds the timer, the phase and the ▶/⏸ start/pause, ⟲ reset and ⚙ settings buttons (Segoe Fluent Icons glyphs), with the progress bar along its bottom edge.
 - The timer text itself is not clickable; all actions go through the buttons.
+- A small red dot on ⚙ means a newer version is out.
 
 **Timer engine** (`Core/PomodoroEngine.cs`)
 - Phases: `Focus → ShortBreak | LongBreak → Focus…`. A long break follows every N completed focus phases.
@@ -30,6 +32,7 @@ A Pomodoro timer for Windows 11 that sits inside the empty area of the taskbar.
 - Single instance via a named mutex.
 - Tray icon with Start/Pause, Reset, Skip, Settings and Exit as a backup control surface.
 - When Deskband11Lib raises `TaskbarWindowRecreationRequired`, the host window is disposed and rebuilt after a short delay.
+- At startup, `Services/UpdateChecker.cs` compares the app version with the latest GitHub release (`tag_name`, e.g. `v1.3.0`; drafts and pre-releases are ignored). If it's newer, the ⚙ button gets a dot and Settings shows an **Update available** box whose Download button opens the release's `*-setup.exe`, or the release page if there is none. If GitHub can't be reached it retries twice, a minute apart, then gives up silently until the next start.
 
 ## Known limitations
 

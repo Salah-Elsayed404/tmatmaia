@@ -15,6 +15,10 @@ public partial class App : Application
 
     public static PomodoroEngine Engine { get; private set; } = null!;
 
+    // Set once the startup check finds a newer release on GitHub.
+    public static UpdateInfo? AvailableUpdate { get; private set; }
+    public static event Action? UpdateFound;
+
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
@@ -30,6 +34,7 @@ public partial class App : Application
         CreateTray();
         Engine.PhaseCompleted += finished => s_notifier?.PhaseCompleted(finished, Engine.Settings);
 
+        _ = CheckForUpdatesAsync();
         await InitializeMainWindowAsync();
     }
 
@@ -56,6 +61,22 @@ public partial class App : Application
         settings.Save();
         StartupRegistration.Set(settings.StartWithWindows);
         Engine.ApplySettings(settings);
+    }
+
+    private static async Task CheckForUpdatesAsync()
+    {
+        // When the app starts with Windows the network is often not up yet, so retry a couple of times.
+        for (var attempt = 1; attempt <= 3; attempt++)
+        {
+            try
+            {
+                AvailableUpdate = await UpdateChecker.CheckAsync();
+                if (AvailableUpdate is not null) UpdateFound?.Invoke();
+                return;
+            }
+            catch { }
+            if (attempt < 3) await Task.Delay(TimeSpan.FromMinutes(1));
+        }
     }
 
     private static async Task InitializeMainWindowAsync()

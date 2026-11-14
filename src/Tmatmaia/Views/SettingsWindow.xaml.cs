@@ -27,8 +27,20 @@ public partial class SettingsWindow : Window
         foreach (var sound in Sounds.BuiltIn) AddSound(sound);
         SelectSound(s.Sound);
 
-        Closed += (_, _) => Sounds.Stop();
+        ShowUpdate();
+        App.UpdateFound += ShowUpdate;
+        Closed += (_, _) => { Sounds.Stop(); App.UpdateFound -= ShowUpdate; };
     }
+
+    private void ShowUpdate()
+    {
+        var update = App.AvailableUpdate;
+        UpdatePanel.Visibility = update is null ? Visibility.Collapsed : Visibility.Visible;
+        if (update is not null)
+            UpdateText.Text = $"Version {update.Version} is out. You have {UpdateChecker.CurrentVersion}.";
+    }
+
+    private void OnDownloadUpdateClick(object sender, RoutedEventArgs e) => OpenLink(App.AvailableUpdate?.DownloadUrl ?? UpdateChecker.ReleasesPage);
 
     private string SelectedSound => (SoundBox.SelectedItem as ComboBoxItem)?.Tag as string ?? "";
 
@@ -79,8 +91,9 @@ public partial class SettingsWindow : Window
         Close();
     }
 
-    private void OnGitHubClick(object sender, RoutedEventArgs e) =>
-        Process.Start(new ProcessStartInfo(GitHubProfileUrl) { UseShellExecute = true });
+    private void OnGitHubClick(object sender, RoutedEventArgs e) => OpenLink(GitHubProfileUrl);
+
+    private static void OpenLink(string url) => Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
 
     private static bool TryParse(string text, out int value) =>
         int.TryParse(text, out value) && value is >= 1 and <= 999;
