@@ -38,7 +38,7 @@ I turned the internet upside down looking for a Pomodoro app that sits right ins
 - Checks for a new version when it starts. If there is one, a small dot appears on the ⚙ button, and Settings shows a **Download** button for the new installer.
 
 <p align="center">
-  <img src="docs/settings.png" width="320" alt="Tmatmaia settings window in dark mode" />
+  <img src="docs/settings-v1.4.png" width="320" alt="Tmatmaia settings window in dark mode" />
 </p>
 
 ## Requirements
@@ -110,7 +110,7 @@ scripts/
   make-icon.ps1              Draws the neon tomato icon from code
 docs/
   DESIGN.md                  Design decisions and known limitations
-  icon.png, screenshot.png, settings.png   Images used in this README
+  icon.png, screenshot.png, settings-v1.4.png   Images used in this README
 ```
 
 Settings are stored in `%APPDATA%\Tmatmaia\settings.json`.
