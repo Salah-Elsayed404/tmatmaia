@@ -34,11 +34,11 @@ I turned the internet upside down looking for a Pomodoro app that sits right ins
 - A Windows notification when a phase ends.
 - Optional start with Windows.
 - Tray icon with the same controls (Start/Pause, Reset, Skip, Settings, Exit).
-- Follows the Windows light/dark theme.
+- Follows the Windows light/dark theme, and Settings has the Windows 11 look with tomato red accents.
 - Checks for a new version when it starts. If there is one, a small dot appears on the ⚙ button, and Settings shows a **Download** button for the new installer.
 
 <p align="center">
-  <img src="docs/settings.png" width="320" alt="Tmatmaia settings window" />
+  <img src="docs/settings.png" width="320" alt="Tmatmaia settings window in dark mode" />
 </p>
 
 ## Requirements
