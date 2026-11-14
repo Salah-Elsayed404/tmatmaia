@@ -9,10 +9,22 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     Topmost="True">
-    <StackPanel Margin="20">
+    <!-- The look comes from WPF's built-in Windows 11 (Fluent) theme, turned on in the code-behind.
+         These colors replace the Windows accent color with Tmatmaia's tomato red. -->
+    <Window.Resources>
+        <Color x:Key="{x:Static SystemColors.AccentColorDark3Key}">#861D21</Color>
+        <Color x:Key="{x:Static SystemColors.AccentColorDark2Key}">#A8282C</Color>
+        <Color x:Key="{x:Static SystemColors.AccentColorDark1Key}">#C9353A</Color>
+        <Color x:Key="{x:Static SystemColors.AccentColorKey}">#E5484D</Color>
+        <Color x:Key="{x:Static SystemColors.AccentColorLight1Key}">#EE5A5F</Color>
+        <Color x:Key="{x:Static SystemColors.AccentColorLight2Key}">#F56C70</Color>
+        <Color x:Key="{x:Static SystemColors.AccentColorLight3Key}">#FA9295</Color>
+    </Window.Resources>
+
+    <StackPanel Margin="20,16,20,18">
         <!-- Shown when the startup check finds a newer version -->
-        <Border x:Name="UpdatePanel" Visibility="Collapsed" CornerRadius="6" Padding="12,10" Margin="0,0,0,16"
-                Background="#14E5484D" BorderBrush="#80E5484D" BorderThickness="1">
+        <Border x:Name="UpdatePanel" Visibility="Collapsed" CornerRadius="8" Padding="12,10" Margin="0,0,0,14"
+                Background="#1FE5484D" BorderBrush="#66E5484D" BorderThickness="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -20,36 +32,32 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Update available" FontWeight="SemiBold" />
-                    <TextBlock x:Name="UpdateText" FontSize="11" Opacity="0.75" TextWrapping="Wrap" Margin="0,2,0,0" />
+                    <TextBlock x:Name="UpdateText" FontSize="12" Opacity="0.75" TextWrapping="Wrap" Margin="0,2,0,0" />
                 </StackPanel>
-                <Button Grid.Column="1" Content="Download" Padding="12,4" Margin="10,0,0,0" VerticalAlignment="Center"
-                        Click="OnDownloadUpdateClick" />
+                <Button Grid.Column="1" Content="Download" Style="{DynamicResource AccentButtonStyle}" Margin="10,0,0,0"
+                        VerticalAlignment="Center" Click="OnDownloadUpdateClick" />
             </Grid>
         </Border>
 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="84" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
             </Grid.RowDefinitions>
-            <Grid.Resources>
-                <Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center" /><Setter Property="Margin" Value="0,6" /></Style>
-                <Style TargetType="TextBox"><Setter Property="Margin" Value="0,4" /><Setter Property="Padding" Value="4,3" /></Style>
-            </Grid.Resources>
-            <TextBlock Grid.Row="0" Text="Focus (minutes)" />
-            <TextBox x:Name="FocusBox" Grid.Row="0" Grid.Column="1" />
-            <TextBlock Grid.Row="1" Text="Short break (minutes)" />
-            <TextBox x:Name="ShortBox" Grid.Row="1" Grid.Column="1" />
-            <TextBlock Grid.Row="2" Text="Long break (minutes)" />
-            <TextBox x:Name="LongBox" Grid.Row="2" Grid.Column="1" />
-            <TextBlock Grid.Row="3" Text="Long break every N pomodoros" />
-            <TextBox x:Name="EveryBox" Grid.Row="3" Grid.Column="1" />
+            <TextBlock Grid.Row="0" Text="Focus (minutes)" VerticalAlignment="Center" />
+            <TextBox x:Name="FocusBox" Grid.Row="0" Grid.Column="1" Margin="0,2" />
+            <TextBlock Grid.Row="1" Text="Short break (minutes)" VerticalAlignment="Center" />
+            <TextBox x:Name="ShortBox" Grid.Row="1" Grid.Column="1" Margin="0,2" />
+            <TextBlock Grid.Row="2" Text="Long break (minutes)" VerticalAlignment="Center" />
+            <TextBox x:Name="LongBox" Grid.Row="2" Grid.Column="1" Margin="0,2" />
+            <TextBlock Grid.Row="3" Text="Long break every N pomodoros" VerticalAlignment="Center" />
+            <TextBox x:Name="EveryBox" Grid.Row="3" Grid.Column="1" Margin="0,2" />
         </Grid>
 
-        <TextBlock Text="Sound when a phase ends" Margin="0,14,0,4" />
+        <TextBlock Text="Sound when a phase ends" Margin="0,12,0,6" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -57,23 +65,29 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <ComboBox x:Name="SoundBox" Grid.Column="0" />
-            <Button Grid.Column="1" Content="▶" Width="30" Margin="6,0,0,0" ToolTip="Preview" Click="OnPreviewSound" />
-            <Button Grid.Column="2" Content="Browse…" Padding="8,0" Margin="6,0,0,0" Click="OnBrowseSound" />
+            <!-- Segoe Fluent Icons "Play" -->
+            <Button Grid.Column="1" Content="&#xE768;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Padding="11,0"
+                    VerticalAlignment="Stretch" Margin="6,0,0,0" ToolTip="Preview" Click="OnPreviewSound" />
+            <Button Grid.Column="2" Content="Browse…" VerticalAlignment="Stretch" Margin="6,0,0,0" Click="OnBrowseSound" />
         </Grid>
 
-        <CheckBox x:Name="AutoStartBox" Content="Start next phase automatically" Margin="0,14,0,0" />
-        <CheckBox x:Name="NotifyBox" Content="Show notification" Margin="0,6,0,0" />
-        <CheckBox x:Name="StartupBox" Content="Start with Windows" Margin="0,6,0,0" />
+        <CheckBox x:Name="AutoStartBox" Content="Start next phase automatically" Margin="0,8,0,0" />
+        <CheckBox x:Name="NotifyBox" Content="Show notification" />
+        <CheckBox x:Name="StartupBox" Content="Start with Windows" />
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Cancel" Width="80" Margin="0,0,8,0" IsCancel="True" Click="OnCancel" />
-            <Button Content="Save" Width="80" IsDefault="True" Click="OnSave" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="Cancel" Width="90" Margin="0,0,8,0" IsCancel="True" Click="OnCancel" />
+            <Button Content="Save" Width="90" IsDefault="True" Style="{DynamicResource AccentButtonStyle}" Click="OnSave" />
         </StackPanel>
 
-        <Separator Margin="0,18,0,10" />
-        <TextBlock x:Name="VersionText" FontSize="11" FontWeight="SemiBold" Opacity="0.75" Margin="0,0,0,4" />
-        <TextBlock TextWrapping="Wrap" Opacity="0.75" FontSize="11"
+        <Separator Margin="0,12,0,10" />
+        <Grid>
+            <TextBlock x:Name="VersionText" FontSize="12" FontWeight="SemiBold" Opacity="0.75" VerticalAlignment="Center" />
+            <TextBlock HorizontalAlignment="Right" FontSize="12" VerticalAlignment="Center">
+                <Hyperlink Click="OnGitHubClick">GitHub profile</Hyperlink>
+            </TextBlock>
+        </Grid>
+        <TextBlock TextWrapping="Wrap" Opacity="0.75" FontSize="12" Margin="0,4,0,0"
                    Text="Tmatmaia is open source 🍅 Want to add something to the main repo? Get in touch." />
-        <Button Content="GitHub profile" HorizontalAlignment="Left" Padding="10,3" Margin="0,8,0,0" Click="OnGitHubClick" />
     </StackPanel>
 </Window>

@@ -14,6 +14,14 @@ public partial class SettingsWindow : Window
     public SettingsWindow()
     {
         InitializeComponent();
+
+        // Windows 11 look that follows the light/dark setting. The Fluent theme ships with .NET,
+        // so it adds nothing to the installer. Only this window uses it: the taskbar widget draws itself.
+        // ThemeMode is still marked as preview in .NET 10; the app bundles its runtime, so it can't change under users.
+#pragma warning disable WPF0001
+        ThemeMode = ThemeMode.System;
+#pragma warning restore WPF0001
+
         var s = App.Engine.Settings;
         FocusBox.Text = s.FocusMinutes.ToString();
         ShortBox.Text = s.ShortBreakMinutes.ToString();

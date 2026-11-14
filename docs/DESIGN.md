@@ -13,6 +13,7 @@ A Pomodoro timer for Windows 11 that sits inside the empty area of the taskbar.
 | Base project | Built from scratch | The closest existing project, taskbar-focus (Rust), is a tray icon plus an optional floating window, not a taskbar widget. |
 | Settings storage | JSON in `%APPDATA%\Tmatmaia\settings.json` | Simple and easy to back up. |
 | Icon | Drawn from code by `scripts/make-icon.ps1` | Anyone can tweak and regenerate it without design tools. |
+| Settings look | WPF's built-in Fluent (Windows 11) theme, set with `ThemeMode` on the Settings window only, with the accent recolored to tomato red | It ships with .NET, so it adds nothing to the installer, and it follows the Windows light/dark setting. The taskbar widget keeps its own drawing because it has to stay transparent. `ThemeMode` is still a preview API in .NET 10 (diagnostic WPF0001); since the runtime is bundled it can't change under users, but recheck it when moving to a newer .NET. |
 | Update check | One request to the GitHub API for the latest release when the app starts; the Download button opens the installer link in the browser | No update server or extra dependency. The browser handles the download and SmartScreen, and the installer already closes the running app and upgrades in place. |
 
 ## Behavior
